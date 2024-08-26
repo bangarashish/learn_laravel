@@ -1,6 +1,7 @@
 @extends('admin.common.page')
 @section('content')
 
+
 <main id="main" class="main">
 
     <div class="pagetitle">
