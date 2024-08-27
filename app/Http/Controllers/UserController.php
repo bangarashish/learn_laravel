@@ -78,7 +78,6 @@ class UserController extends Controller
     public function edit_user($id){
 
         $user = User::findOrFail($id);
-
         // Return a view or JSON response
         return view('admin.users.editUser', compact('user'));
 
@@ -87,12 +86,6 @@ class UserController extends Controller
     public function update_user(Request $request){
 
         // dd($request->all());
-        // $user_new = User::findOrFail($id);
-        // $user_new->name = $request->name;
-        // $user_new->name = $request->name;
-        // $user_new->name = $request->name;
-        // $user_new->name = $request->name;
-        // $user_new->save();
         
         $user = User::find($request->userId);
 
