@@ -26,7 +26,7 @@
           
           <div class="card">
             <div class="card-body">
-              <a href="{{ url('addUser') }}" class="addBtn"> <button type="button" class="btn btn-primary">Add New</button> </a>
+              <a href="{{ route('interpreter.create') }}" class="addBtn"> <button type="button" class="btn btn-primary">Add New</button> </a>
               <h5 class="card-title">Users</h5>
                
               <!-- Table with stripped rows -->

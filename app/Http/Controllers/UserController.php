@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 // use DataTables;
 use Yajra\DataTables\Facades\Datatables;
+use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     public function index(Request $request){
@@ -59,7 +60,7 @@ class UserController extends Controller
 
         $user = User::create([
             'name' => $request->name,
-            'password' => bcrypt($request->password),
+            'password' => Hash::make($request->password),
             'company_name' => $request->company_name,
             'phone' => $request->phone,
             'expiry_date' => $request->expiry_date,
