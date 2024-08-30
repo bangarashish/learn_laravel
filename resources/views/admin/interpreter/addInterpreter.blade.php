@@ -3,16 +3,16 @@
 
 
 <meta name="csrf-token" content="{{ csrf_token() }}">
- 
+
   <main id="main" class="main">
     <div class="pagetitle"><h1>Add Job Post</h1></div>
     <ol class="breadcrumb"><li class="breadcrumb-item"><a href="https://thor.softgetix.com/nadmin/modules/sadmin/assignments/">Tuition Assignments</a></li>
       <li class="breadcrumb-item active">Add Job Post</li></ol>
     <section class="section profile">
       <div class="row">
-     
-        <form id="myForm"> 
-         
+
+        <form id="myForm">
+
           <div class="col-xl-12">
 
             <div class="card">
@@ -22,14 +22,14 @@
                     <div class="row mb-3">
                       <div class="col-sm-12 col-lg-4 mb-3">
                         <label for="you_are" class="col-form-label">Name</label>
-                     
+
                         <input type="text" name="name" id="name" class="form-control">
                       </div>
 
                       <div class="col-sm-12 col-lg-4 mb-3">
                           <label for="you_are" class="col-form-label">Email</label>
                       <input type="email" name="email" id="email" class="form-control">
-                      </div> 
+                      </div>
 
                       <div class="col-sm-12 col-lg-4 mb-3">
                           <label for="you_are" class="col-form-label">Phone</label>
@@ -54,13 +54,13 @@
                             <option value="{{ $states->id }}"> {{ $states->state_name}} </option>
                         @endforeach
                         </select>
-                      </div> 
+                      </div>
 
                       <div class="col-sm-12 col-lg-4 mb-3">
                       <label for="country" class="col-form-label">Country:*</label>
                         <select name="country" id="country" class="form-control">
                          @foreach($data['countries'] as $country)
-                            <option value="{{ $country->id }}">{{ $country->country_name }}</option>                         
+                            <option value="{{ $country->id }}">{{ $country->country_name }}</option>
                          @endforeach
                         </select>
                       </div>
@@ -71,8 +71,8 @@
                       <div class="col-sm-12 col-lg-6 mb-3">
                           <label for="you_are" class="col-form-label">DOB:</label>
                       <input type="date" name="dob" class="form-control" id="dob">
-                      </div> 
-                     
+                      </div>
+
                     </div>
 
                     <div class="row mb-3">
@@ -100,32 +100,31 @@
                     </div>
 
                     <div class="row mb-3">
-                      
+
                     <div class="col-sm-12 col-lg-6 mb-3">
                         <label for="description" class="col-form-label">Description*</label>
-                     
+
                         <textarea class="form-control" name="description" id="description"></textarea>
                     </div>
 
-                    <!-- <div class="col-sm-12 col-lg-6 mb-3">
+                    <div class="col-sm-12 col-lg-6 mb-3">
                         <label for="you_are" class="col-form-label">Image*</label>
-                     
                         <input type="file" name="image" class="form-control" value="">
-                    </div> -->
-                      
+                    </div>
+
                     </div>
 
                 <div class="col-sm-10">
                     <button type="submit" class="btn btn-primary add-new" id="create_int">Submit</button>
                 </div>
 
-                    
+
             </div>
             </div>
         </div>
-      
 
-       
+
+
         </form>
       </div>
     </section>
@@ -144,15 +143,21 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-       
+
         $('#create_int').on('click', function(e){
             e.preventDefault();
-            var formData = $('#myForm').serialize();
-            
+
+           // var formData = $('#myForm').serialize();
+            var formData = new FormData($('#myForm')[0]);
+
+           // alert(formData);
+
             $.ajax({
                 url: '{{ route('interpreter.store') }}',
                 type: 'POST',
                 data: formData,
+                contentType: false, // Tell jQuery not to set contentType
+                processData: false, // Tell jQuery not to process data
                 success: function(){
 
                     alert('submit');

@@ -7,8 +7,8 @@
     float: right;
     margin-top: 15px;
     margin-right: 15px;
-  } 
-  
+  }
+
 </style>
 
   <main id="main" class="main">
@@ -19,12 +19,12 @@
     <section class="section">
       <div class="row">
         <div class="col-lg-12">
-          
+
           <div class="card">
             <div class="card-body">
               <a href="{{ route('interpreter.create') }}" class="addBtn"> <button type="button" class="btn btn-primary">Add New</button> </a>
               <h5 class="card-title">Users</h5>
-               
+
               <!-- Table with stripped rows -->
               <table class="table datatable data-table">
                 <thead>
@@ -42,12 +42,13 @@
                     <th>Gender</th>
                     <th>Subject</th>
                     <th>Description</th>
+                    <th>Image</th>
                     <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
-					
-                    
+
+
                 </tbody>
               </table>
               <!-- End Table with stripped rows -->
@@ -80,7 +81,7 @@
                 ajax: {
                     url: "{{ route('interpreter.index') }}",
                     // data: function (d) {
-                       
+
                     //     console.log('Request Data:', d);
                     // },
                     // success: function (response) {
@@ -102,6 +103,7 @@
                     { data: 'gender', name: 'gender' },
                     { data: 'subject', name: 'subject' },
                     { data: 'description', name: 'description' },
+                    { data: 'image', name: 'image', orderable: false, searchable: false },
                     { data: 'action', name: 'action', orderable: false, searchable: false }
                 ]
             });
@@ -112,9 +114,9 @@
             //     var userId = $(this).data('id');
             //     //alert('Edit button clicked for user ID: ' + userId);
             //     // You can handle the edit action here
-                
+
             //         $.ajax({
-            //             url: "", 
+            //             url: "",
             //             type: 'POST',
             //             data: {
             //                 _token: '', // Add CSRF token

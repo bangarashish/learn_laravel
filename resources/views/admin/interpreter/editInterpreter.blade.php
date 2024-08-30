@@ -1,16 +1,16 @@
 @extends('admin.common.page')
 @section('content')
 <meta name="csrf-token" content="{{ csrf_token() }}">
- 
+
   <main id="main" class="main">
     <div class="pagetitle"><h1>Edit Interpreter</h1></div>
     <ol class="breadcrumb"><li class="breadcrumb-item"><a href="https://thor.softgetix.com/nadmin/modules/sadmin/assignments/">Tuition Assignments</a></li>
       <li class="breadcrumb-item active">Add Interpreter</li></ol>
     <section class="section profile">
       <div class="row">
-     
-        <form id="myForm"> 
-         
+
+        <form id="myForm">
+
           <div class="col-xl-12">
 
             <div class="card">
@@ -27,7 +27,7 @@
                       <div class="col-sm-12 col-lg-4 mb-3">
                           <label for="you_are" class="col-form-label">Email</label>
                       <input type="email" name="email" id="email" class="form-control" value="{{$data['interpreter']->email}}">
-                      </div> 
+                      </div>
 
                       <div class="col-sm-12 col-lg-4 mb-3">
                           <label for="you_are" class="col-form-label">Phone</label>
@@ -40,7 +40,7 @@
                       <label for="city" class="col-form-label">City:*</label>
                         <select name="city" id="city" class="form-control">
                         @foreach($data['cities'] as $city)
-                            <option value="{{$city->id}}"  @if($city->id == $data['interpreter']->city_id) selected @endif>{{$city->city_name}}</option>   
+                            <option value="{{$city->id}}"  @if($city->id == $data['interpreter']->city_id) selected @endif>{{$city->city_name}}</option>
                         @endforeach
                         </select>
                       </div>
@@ -52,7 +52,7 @@
                             <option value="{{$state->id}}" @if($state->id == $data['interpreter']->state_id) selected @endif>{{ $state->state_name}}</option>
                         @endforeach
                         </select>
-                      </div> 
+                      </div>
 
                       <div class="col-sm-12 col-lg-4 mb-3">
                       <label for="country" class="col-form-label">Country:*</label>
@@ -69,8 +69,8 @@
                       <div class="col-sm-12 col-lg-6 mb-3">
                           <label for="you_are" class="col-form-label">DOB:</label>
                       <input type="date" name="dob" class="form-control" id="dob" value="{{$data['interpreter']->dob}}">
-                      </div> 
-                     
+                      </div>
+
                     </div>
 
                     <div class="row mb-3">
@@ -98,32 +98,33 @@
                     </div>
 
                     <div class="row mb-3">
-                      
+
                     <div class="col-sm-12 col-lg-6 mb-3">
                         <label for="description" class="col-form-label">Description*</label>
-                     
+
                         <textarea class="form-control" name="description" id="description">{{$data['interpreter']->description}}</textarea>
                     </div>
 
-                    <!-- <div class="col-sm-12 col-lg-6 mb-3">
+                    <div class="col-sm-12 col-lg-6 mb-3">
                         <label for="you_are" class="col-form-label">Image*</label>
-                     
                         <input type="file" name="image" class="form-control" value="">
-                    </div> -->
-                      
+                        <img src="{{ Storage::url('document/' . $data['interpreter']->image) }}" id="profile-img-tag" height="100" width="100" alt="Profile Image">
+
+                    </div>
+
                     </div>
 
                 <div class="col-sm-10">
                     <button type="submit" class="btn btn-primary add-new" id="create_int">Submit</button>
                 </div>
 
-                    
+
             </div>
             </div>
         </div>
-      
 
-       
+
+
         </form>
       </div>
     </section>
@@ -142,24 +143,26 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-       
+
         $('#create_int').on('click', function(e){
             e.preventDefault();
-            var formData = $('#myForm').serialize();
-            
+            //var formData = $('#myForm').serialize();
+            var formData = new FormData($('#myForm')[0]);
+            //var int_id = formData.get('int_id');
+
+
             $.ajax({
                 url: '{{ route('interpreter.update') }}',
-                type: 'PUT',
+                type: 'post',
                 data: formData,
+                contentType: false,
+                processData: false,
                 success: function(){
 
                     alert('submit');
                 }
 
             });
-
-
-
 
         });
     })

@@ -13,16 +13,17 @@ class InterpreterModel extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'name', 
-        'email', 
-        'phone', 
-        'city_id', 
-        'state_id', 
-        'country_id', 
+        'name',
+        'email',
+        'phone',
+        'city_id',
+        'state_id',
+        'country_id',
         'dob',
         'gender',
         'subject',
         'description',
+        'image',
     ];
 
 

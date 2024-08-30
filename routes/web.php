@@ -33,7 +33,7 @@ Route::post('/login', [AdminController::class, 'login'])->name('login');
 
 Route::middleware('admin.access')->group(function () {
 
-            
+
     Route::get('/dashboard', [DashboardController::class, 'viewDashboard'])->name('dashboard');
     Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
 
@@ -45,12 +45,12 @@ Route::middleware('admin.access')->group(function () {
     Route::get('/edit-user/{id}', [UserController::class, 'edit_user'])->name('edit-user');
     Route::post('/update-user', [UserController::class, 'update_user'])->name('update-user');
 
-    
+
     Route::get('/interpreter', [InterpreterController::class, 'index'])->name('interpreter.index');
     Route::get('/interpreter/create', [InterpreterController::class, 'create'])->name('interpreter.create');
     Route::post('/interpreter', [InterpreterController::class, 'store'])->name('interpreter.store');
     Route::get('/interpreter/{interpreter}', [InterpreterController::class, 'show'])->name('interpreter.show');
-    Route::put('/interpreter/{interpreter}', [InterpreterController::class, 'update'])->name('interpreter.update');
+    Route::post('/interpreter/update', [InterpreterController::class, 'update'])->name('interpreter.update');
     Route::delete('/interpreter/{interpreter}', [InterpreterController::class, 'destroy'])->name('interpreter.destroy');
 
 
