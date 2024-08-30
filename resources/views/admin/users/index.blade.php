@@ -79,7 +79,7 @@
                 serverSide: true,
                 ajax: "{{ route('users') }}", // Ensure this route is correct
                 columns: [
-                    { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
+                    { data: 'id', name: 'id', orderable: false, searchable: false },
                     { data: 'name', name: 'name' },
                     { data: 'company_name', name: 'company_name' },
                     { data: 'expiry_date', name: 'expiry_date' },

@@ -2,10 +2,6 @@
 @section('content')
 
 
-
-
-
-
 <style type="text/css">
    .card-body .addBtn {
     float: right;
@@ -36,12 +32,16 @@
                     <!-- <th>First Name</th>
                     <th>Last Name</th> -->
                     <th>ID</th>
-                    <th>Full Name</th>
-                    <th>company_name</th>
-                    <th>expiry_date</th>
-                    <th>phone</th>
-                    <th>role</th>
-                    <th>email</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>City Name</th>
+                    <th>State Name</th>
+                    <th>Country Name</th>
+                    <th>Dob</th>
+                    <th>Gender</th>
+                    <th>Subject</th>
+                    <th>Description</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -77,15 +77,31 @@
             $('.data-table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('users') }}", // Ensure this route is correct
+                ajax: {
+                    url: "{{ route('interpreter.index') }}",
+                    // data: function (d) {
+                       
+                    //     console.log('Request Data:', d);
+                    // },
+                    // success: function (response) {
+                    //     console.log('AJAX Response:', response);
+                    // },
+                    // error: function (xhr, status, error) {
+                    //     console.error('AJAX Error:', status, error);
+                    // }
+                },
                 columns: [
-                    { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
+                    { data: 'id', name: 'id', orderable: false, searchable: false },
                     { data: 'name', name: 'name' },
-                    { data: 'company_name', name: 'company_name' },
-                    { data: 'expiry_date', name: 'expiry_date' },
-                    { data: 'phone', name: 'phone' },
-                    { data: 'role', name: 'role' },
                     { data: 'email', name: 'email' },
+                    { data: 'phone', name: 'phone' },
+                    { data: 'city_name', name: 'city_name' },
+                    { data: 'state_name', name: 'state_name'},
+                    { data: 'country_name', name: 'country_name'},
+                    { data: 'dob', name: 'dob' },
+                    { data: 'gender', name: 'gender' },
+                    { data: 'subject', name: 'subject' },
+                    { data: 'description', name: 'description' },
                     { data: 'action', name: 'action', orderable: false, searchable: false }
                 ]
             });

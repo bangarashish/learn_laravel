@@ -10,8 +10,9 @@
       <li class="breadcrumb-item active">Add Job Post</li></ol>
     <section class="section profile">
       <div class="row">
+     
         <form id="myForm"> 
-          <input type="hidden" name="selected_ids[]" id="selected_ids" />
+         
           <div class="col-xl-12">
 
             <div class="card">
@@ -40,21 +41,27 @@
                       <div class="col-sm-12 col-lg-4 mb-3">
                       <label for="city" class="col-form-label">City:*</label>
                         <select name="city" id="city" class="form-control">
-                        <option value="1">Indore</option>
+                            @foreach ($data['cities'] as $city)
+                                <option value="{{ $city->id}}">{{$city->city_name}}</option>
+                            @endforeach
                         </select>
                       </div>
 
                       <div class="col-sm-12 col-lg-4 mb-3">
                       <label for="state" class="col-form-label">State:*</label>
                         <select name="state" id="state" class="form-control">
-                        <option value="1">Bhopal</option>
+                        @foreach($data['states'] as $states)
+                            <option value="{{ $states->id }}"> {{ $states->state_name}} </option>
+                        @endforeach
                         </select>
                       </div> 
 
                       <div class="col-sm-12 col-lg-4 mb-3">
                       <label for="country" class="col-form-label">Country:*</label>
                         <select name="country" id="country" class="form-control">
-                        <option value="1">India</option>
+                         @foreach($data['countries'] as $country)
+                            <option value="{{ $country->id }}">{{ $country->country_name }}</option>                         
+                         @endforeach
                         </select>
                       </div>
                     </div>
@@ -83,11 +90,11 @@
                     <div class="row mb-3">
                         <div class="col-sm-12 col-lg-6 mb-3">
                             <label for="you_are" class="col-form-label">Subject</label><br>
-                            <input type="checkbox" id="hindi" name="subject" value="Hindi">
+                            <input type="checkbox" id="hindi" name="subject[]" value="Hindi">
                             <label for="hindi"> Hindi</label><br>
-                            <input type="checkbox" id="english" name="subject" value="English">
+                            <input type="checkbox" id="english" name="subject[]" value="English">
                             <label for="english"> English </label><br>
-                            <input type="checkbox" id="maths" name="subject" value="Maths">
+                            <input type="checkbox" id="maths" name="subject[]" value="Maths">
                             <label for="maths"> Maths</label><br><br>
                         </div>
                     </div>
@@ -97,7 +104,7 @@
                     <div class="col-sm-12 col-lg-6 mb-3">
                         <label for="description" class="col-form-label">Description*</label>
                      
-                        <textarea class="form-control" id="description"></textarea>
+                        <textarea class="form-control" name="description" id="description"></textarea>
                     </div>
 
                     <!-- <div class="col-sm-12 col-lg-6 mb-3">
@@ -140,12 +147,10 @@
        
         $('#create_int').on('click', function(e){
             e.preventDefault();
-            
-             
             var formData = $('#myForm').serialize();
             
             $.ajax({
-                url: '',
+                url: '{{ route('interpreter.store') }}',
                 type: 'POST',
                 data: formData,
                 success: function(){
