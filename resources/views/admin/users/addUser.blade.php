@@ -2,7 +2,7 @@
 @extends('admin.common.page')
 @section('content')
 
-<meta name="csrf-token" content="{{ csrf_token() }}">
+{{-- <meta name="csrf-token" content="{{ csrf_token() }}"> --}}
   <main id="main" class="main">
 
   <div class="pagetitle"><h1>Add User</h1></div>
@@ -17,12 +17,26 @@
             <div class="card-body">
               <h5 class="card-title">Add New Articles</h5>
 
+               <!-- Display Validation Errors -->
+    @if ($errors->any())
+    <div style="color: red;">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
               <!-- General Form Elements -->
               <form id="myForm">
                 <div class="row mb-3">
                   <label for="inputText" class="col-sm-2 col-form-label">Full Name </label>
                   <div class="col-sm-10">
                     <input type="text" name="name" id="name" class="form-control">
+                    @error('name')
+                    <div style="color: red;">{{ $message }}</div>
+                    @enderror
                   </div>
                 </div>
 
@@ -58,7 +72,8 @@
                   <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
                   <div class="col-sm-10">
                     <input type="password" class="form-control" name="password" id="password">
-                  </div>
+                    <div class="error-message" style="color: red;"></div>
+                </div>
                 </div>
 
 
@@ -92,43 +107,82 @@
 
         </div>
 
-       
+
       </div>
     </section>
 
-  @endsection
- 
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  
 
-  <script>
-        $(document).ready(function () {
+    <script>
+        jQuery.noConflict();
 
-            $.ajaxSetup({
+        jQuery(document).ready(function($) {
+          // Initialize jQuery validation on the form
+          $("#myForm").validate({
+            rules: {
+              name: {
+                required: true,
+                minlength: 2
+              }
+            },
+            messages: {
+              name: {
+                required: "Please enter your full name",
+                minlength: "Your name must consist of at least 2 characters"
+              }
+            },
+            submitHandler: function(form) {
+              // Form is valid, handle AJAX submission
+              var formData = $(form).serialize();
+
+              //console.log(formData);
+
+              $.ajaxSetup({
                 headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
-            });
+              });
 
-            // $(document).on('click', '.editProduct', function() {
-            $('#btn-submit').on('click', function(e) {
-                e.preventDefault(); 
-            
-                var formData = $('#myForm').serialize(); 
+              $.ajax({
+                url: "{{ route('store-user') }}",
+                type: 'POST',
+                data: formData,
+                success: function(response) {
+                  alert('Form submitted successfully!');
+                  // Handle the response from the server if needed
+                  // Optionally, redirect or update the page content
+                },
+                error: function(xhr, status, error) {
+                 // alert('An error occurred: ' + error);
 
-                $.ajax({
-                    url: "{{ route('store-user') }}", 
-                    type: 'POST',
-                    data: formData,
-                    success: function(response) {
-                        alert('Form submitted successfully!');
-                        // Handle the response from the server if needed
-                    },
-                    error: function(xhr, status, error) {
-                        alert('An error occurred: ' + error);
-                        // Handle errors if needed
+                  var errors = xhr.responseJSON.errors;
+
+                  //alert(errors);
+                  // Handle errors if needed
+
+                  if (errors) {
+                        // Clear previous error messages
+                        $('.error-message').remove();
+
+                        // Display new error messages
+                        $.each(errors, function(key, value) {
+                            $('#' + key).after('<div class="error-message" style="color: red;">' + value[0] + '</div>');
+                        });
                     }
-                });
-            });
+                }
+              });
+            }
+          });
+
+          // Optional: Trigger form submission on button click
+          $("#btn-submit").click(function() {
+            $("#myForm").submit();
+          });
         });
-    </script>
+        </script>
+
+  @endsection
+
+  {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
+
+
+

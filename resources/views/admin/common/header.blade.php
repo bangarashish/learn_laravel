@@ -31,7 +31,16 @@
 
   <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css" rel="stylesheet"> -->
   <link href="https://cdn.datatables.net/1.11.4/css/dataTables.bootstrap5.min.css" rel="stylesheet">
-
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  {{-- <script src=
+  "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+        </script> --}}
+      <script src=
+  "https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js">
+        </script>
+      <script src=
+  "https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js">
+        </script>
   <!-- =======================================================
   * Template Name: NiceAdmin
   * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/

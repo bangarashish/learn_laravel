@@ -33,7 +33,7 @@ Route::post('/login', [AdminController::class, 'login'])->name('login');
 
 Route::middleware('admin.access')->group(function () {
 
-
+    Route::get('/admin/dashboard', [DashboardController::class, 'adminDashboard'])->name('dash');
     Route::get('/dashboard', [DashboardController::class, 'viewDashboard'])->name('dashboard');
     Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
 

@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class User extends Authenticatable
 {
@@ -24,7 +26,8 @@ class User extends Authenticatable
         'company_name',
         'phone',
         'expiry_date',
-        'role',
+
+        'roless',
     ];
 
     /**
@@ -45,4 +48,20 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // public function phone(): HasOne
+    // {
+    //     return $this->hasOne(PhoneModel::class, 'user_id');
+    // }
+
+    public function phone()
+    {
+        return $this->hasOne(Phone::class);
+    }
+
+    public function profile()
+    {
+        return $this->hasMany(Profile::class);
+    }
+
 }

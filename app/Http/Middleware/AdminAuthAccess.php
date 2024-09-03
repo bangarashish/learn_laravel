@@ -17,11 +17,13 @@ class AdminAuthAccess
      */
     public function handle(Request $request, Closure $next)
     {
-            if (Auth::user()) {
-               
+            // if (Auth::user()) {
+            //     return $next($request);
+            // }
+            if (Auth::guard('admin')->check()) {
                 return $next($request);
             }
-             
+
             return redirect()->route('admin')->with('error', 'You must be logged in to access this page.');
 
     }
